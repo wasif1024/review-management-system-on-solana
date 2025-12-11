@@ -12,6 +12,7 @@ pub fn update_scores(
     levels: Vec<u8>,
     override_levels: bool,
 ) -> Result<()> {
+    msg!("update transaction");
     assert_eq!(ctx.accounts.org.weights.len(), scores_sum.len());
     assert_eq!(ctx.accounts.org.weights.len(), reviews_recieved.len());
     assert_eq!(ctx.accounts.org.ranges.len() + 1, levels.len());

@@ -100,7 +100,7 @@ pub fn register(
     let mint_to_cpi_ctx = CpiContext::new_with_signer(token_program, mint_to_cpi_accounts, signer);
     mint_to(mint_to_cpi_ctx, 1)?;
     msg!("Token minted");
-
+    msg!("register instruction");
     let mut metadata_name = org.name.clone();
     metadata_name.push_str(" - ");
     metadata_name.push_str(&name);

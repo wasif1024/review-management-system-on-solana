@@ -61,19 +61,26 @@ pub fn receive_score(
     }
 
     msg!(
-        "check debug last_update:{} level_wait:{} current_ts:{} current_level:{:?} next_level:{:?}",
+        "check debug last_update:{} level_wait:{} current_ts:{} current_level:{:?} next_level:{:?} total:{:?} submission:{:?}",
         score.last_update,
         ctx.accounts.org.level_wait,
         clock.unix_timestamp,
         score.levels,
-        next_level
+        next_level,
+        score.last_update + (ctx.accounts.org.level_wait as i64),submission_ts
     );
+
     if score.levels == next_level {
+        msg!(
+            "next level and levels matched");
         score.last_update = clock.unix_timestamp;
     } else if score.levels != next_level
-        && score.last_update + (ctx.accounts.org.level_wait as i64) < submission_ts
+        //&& score.last_update + (ctx.accounts.org.level_wait as i64) < submission_ts
+        //&&score.last_update+(10368000000 as i64)<submission_ts
         && *score.reviews_recieved.iter().max().unwrap() >= ctx.accounts.org.min_reviews as u16
     {
+        msg!(
+            "inside recieve score");
         score.levels = next_level;
         score.last_update = submission_ts;
 

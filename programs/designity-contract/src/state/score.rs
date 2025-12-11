@@ -65,18 +65,16 @@ impl Score {
         msg!("Updating potential levels");
         let mut levels: Vec<u8> = vec![0_u8; self.levels.len()];
         //let mut dumm_level=0.0;
+        msg!(
+            "saved scores:{:?} organization levels:{:?}",
+            self.scores,
+            org.levels
+        );
         for (p1, e1) in self.scores.iter().enumerate() {
             let mut level = 0;
             //for (inner_index,l) in org.levels[p1].iter().enumerate() {
             for l in org.levels[p1].iter() {
                 if l < e1 {
-                    /*if p1==1&&inner_index==0{
-                        dumm_level=l+26.0;
-                    }else{
-                        dumm_level=l+1.0;
-                    }
-                msg!("dummy values {}",&dumm_level);
-                if &dumm_level < e1 {*/
                     level += 1
                 } else {
                     break;
@@ -91,6 +89,8 @@ impl Score {
     pub fn calculate_next_level(&self, potential_levels: Vec<u8>) -> Vec<u8> {
         msg!("Calculating next level");
         let mut levels = self.levels.clone();
+        msg!("current level {:?}",self.levels);
+        msg!("current level enumerate {:?}",self.levels.iter().enumerate());
         for (p, e1) in self.levels.iter().enumerate() {
             if *e1 < potential_levels[p] {
                 levels[p] += 1;
